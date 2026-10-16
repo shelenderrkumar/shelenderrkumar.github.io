@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shelender Kumar · Machine Learning Engineer</title>
+  <meta name="description" content="Shelender Kumar builds speech agents, grounded LLM systems and NLP for Urdu, and measures them honestly.">
+  <meta property="og:title" content="Shelender Kumar · Machine Learning Engineer">
+  <meta property="og:description" content="Speech agents, grounded LLM systems, NLP for Urdu, and kernel-speed network enforcement.">
+  <meta property="og:url" content="https://shelenderrkumar.github.io/">
+  <meta name="theme-color" content="#0b1220" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#fbfaf7" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+  <script>
+    try { const t = localStorage.getItem("theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#work">Skip to work</a>
+
+  <header class="nav">
+    <a class="mark" href="#top" aria-label="Home">SK</a>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#research">Research</a>
+      <a href="#about">About</a>
+      <a href="https://github.com/shelenderrkumar">GitHub</a>
+      <button class="theme" type="button" aria-label="Switch colour theme" title="Switch colour theme">
+        <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 1 0 9 9c0-.5 0-.9-.1-1.4A5.5 5.5 0 0 1 13.4 3.1 9 9 0 0 0 12 3Z"/></svg>
+      </button>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <p class="eyebrow">Machine learning engineer · Islamabad, Pakistan</p>
+      <h1>Shelender Kumar</h1>
+      <p class="lede">
+        I build AI systems that <em>listen, speak and read</em>: voice agents you can phone,
+        assistants that cite their sources, and models for Urdu, a language with over
+        200 million speakers that AI still underserves. I care most about the part after the demo:
+        latency, failure modes, and evaluation that holds up.
+      </p>
+      <div class="actions">
+        <a class="btn primary" href="#work">See the work</a>
+        <a class="btn" href="https://github.com/shelenderrkumar">GitHub</a>
+        <a class="btn" href="https://twitter.com/shelenderrkumar">X / Twitter</a>
+      </div>
+      <dl class="facts">
+        <div><dt>Education</dt><dd>BS Computer Science, SEECS, NUST</dd></div>
+        <div><dt>Focus</dt><dd>Speech agents · RAG · Urdu NLP · eBPF</dd></div>
+        <div><dt>Habit</dt><dd>Every project ships with tests and CI</dd></div>
+      </dl>
+    </section>
+
+    <section id="work" class="section">
+      <header class="section-head">
+        <span class="num">01</span>
+        <h2>Selected work</h2>
+      </header>
+
+      <article class="project featured">
+        <div class="project-main">
+          <p class="kicker">Systems research · final-year project, rebuilt</p>
+          <h3><a href="https://github.com/shelenderrkumar/Network-Monitoring-App">DPI Guard: blocking a domain before its first connection completes</a></h3>
+          <p>
+            Deep packet inspection (nDPI) identifies which domain each connection goes to,
+            and an eBPF/XDP program drops blocked traffic in the kernel driver, before the network stack
+            sees it. Measuring the pipeline showed the bottleneck was neither DPI nor the kernel
+            but <strong>packet-capture buffering</strong>. A filtered fast path for TLS ClientHellos removed it.
+          </p>
+          <ul class="tags"><li>eBPF / XDP</li><li>nDPI</li><li>Linux networking</li><li>Python + C</li></ul>
+        </div>
+        <figure class="chart" aria-labelledby="ttb-caption">
+          <figcaption id="ttb-caption">Median time from ClientHello to kernel block (log scale)</figcaption>
+          <div class="bars" role="list">
+            <div class="bar" role="listitem" style="--w: 95%">
+              <span class="label">Flow export (v1)</span><span class="track"><span class="fill"></span></span><span class="val">5,806 ms</span><span class="note">0/30 first connections stopped</span>
+            </div>
+            <div class="bar" role="listitem" style="--w: 70%">
+              <span class="label">Per-packet plugin</span><span class="track"><span class="fill"></span></span><span class="val">489 ms</span><span class="note">0/30 stopped</span>
+            </div>
+            <div class="bar accent" role="listitem" style="--w: 5%">
+              <span class="label">Fast path (v2)</span><span class="track"><span class="fill"></span></span><span class="val">0.81 ms</span><span class="note">30/30 stopped</span>
+            </div>
+          </div>
+          <p class="source">Measured on a Linux 6.18 testbed, 30 trials per mode.</p>
+        </figure>
+      </article>
+
+      <div class="grid">
+        <article class="project">
+          <p class="stat"><span>38</span> tests, including a simulated phone call</p>
+          <h3><a href="https://github.com/shelenderrkumar/Twilio-OpenAI-Realtime-Voice-Bot">Realtime voice agent</a></h3>
+          <p>
+            A speech-to-speech agent on a real phone number. It streams audio between Twilio and the
+            OpenAI Realtime API, lets callers interrupt mid-sentence, and runs tool calls
+            (order tracking, a cart, document search) concurrently without stalling the audio.
+            Speaks English and Urdu.
+          </p>
+          <ul class="tags"><li>asyncio</li><li>WebSockets</li><li>FastAPI</li><li>FAISS</li></ul>
+        </article>
+
+        <article class="project">
+          <p class="stat"><span>2024 → 2026</span> an honest re-evaluation</p>
+          <h3><a href="https://github.com/shelenderrkumar/Urdu-Image-Captioning">UrduCap: image captioning in Urdu</a></h3>
+          <p>
+            Revisiting my 2024 model, I found its BLEU score was inflated by train/test leakage
+            (99.8% of test images seen in training) and character-level scoring. Version 2 fixes the protocol
+            and compares a CNN-GRU, SigLIP 2 + mBART-50, and a LoRA-tuned Qwen3-VL.
+          </p>
+          <ul class="tags"><li>PyTorch</li><li>Transformers</li><li>LoRA</li><li>Evaluation</li></ul>
+        </article>
+
+        <article class="project">
+          <p class="stat"><span>Hit rate@k · MRR</span> retrieval evaluation</p>
+          <h3><a href="https://github.com/shelenderrkumar/RAG-App">Stateful RAG assistant</a></h3>
+          <p>
+            A conversational agent built as a LangGraph state machine with human-in-the-loop interrupts:
+            it guides a user through a flow, confirms before acting, and answers questions about a PDF
+            with page citations. Replies stream over WebSockets.
+          </p>
+          <ul class="tags"><li>LangGraph</li><li>RAG</li><li>FastAPI</li><li>pytest</li></ul>
+        </article>
+
+        <article class="project">
+          <p class="stat"><span>10</span> languages, with dose checks</p>
+          <h3><a href="https://github.com/shelenderrkumar/Healthcare-Translation-App-with-Gen-AI">Clinician–patient interpreter</a></h3>
+          <p>
+            Two-way speech translation for clinics: Whisper transcription, a constrained LLM
+            translation, and a deterministic check that flags any dropped or changed number or dose,
+            across Urdu, Hindi and Arabic digits. A back-translation lets the clinician verify.
+          </p>
+          <ul class="tags"><li>Whisper</li><li>LLMs</li><li>Streamlit</li><li>Safety checks</li></ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="research" class="section">
+      <header class="section-head">
+        <span class="num">02</span>
+        <h2>Research</h2>
+      </header>
+      <div class="research">
+        <div>
+          <h3 class="small">In preparation</h3>
+          <p class="paper">
+            <span class="paper-title">Blocking the First Connection: Where the Time Goes in DPI-Guided XDP Enforcement</span>
+            <span class="paper-meta">Shelender Kumar · workshop paper, in preparation</span>
+          </p>
+          <p class="muted">
+            Why DPI-guided blockers miss the first connection, a fast path that doesn't,
+            and what XDP, nftables and iptables cost per packet as blocklists grow to 10,000 addresses.
+          </p>
+        </div>
+        <div>
+          <h3 class="small">Interests</h3>
+          <ul class="interests">
+            <li><strong>Conversational speech agents</strong>: turn-taking, interruptions, tool use and latency</li>
+            <li><strong>Grounded generation</strong>: retrieval quality and citation faithfulness in RAG</li>
+            <li><strong>Low-resource NLP</strong>: Urdu, and code-switched Urdu–English</li>
+            <li><strong>Evaluation</strong>: benchmarks that measure what they claim to</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <header class="section-head">
+        <span class="num">03</span>
+        <h2>About</h2>
+      </header>
+      <div class="about">
+        <p>
+          I studied Computer Science at the School of Electrical Engineering and Computer Science (SEECS),
+          National University of Sciences and Technology (NUST), Islamabad, and have since worked as a
+          machine learning engineer on voice and LLM products.
+        </p>
+        <p>
+          My approach: find the number that matters (time to block, retrieval hit rate, a dropped dose),
+          measure it on something real, and write the test that keeps it true. When I revisit old work,
+          I re-check the evaluation first.
+        </p>
+        <ul class="skills" aria-label="Tools">
+          <li>Python</li><li>PyTorch</li><li>Transformers</li><li>LangGraph</li><li>FastAPI</li>
+          <li>asyncio</li><li>eBPF / XDP</li><li>C</li><li>Docker</li><li>GitHub Actions</li><li>Linux</li><li>SQL</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Open to conversations about speech AI, RAG evaluation and NLP for Urdu.</p>
+    <p class="links">
+      <a href="https://github.com/shelenderrkumar">GitHub</a>
+      <a href="https://twitter.com/shelenderrkumar">X / Twitter</a>
+      <a href="https://leetcode.com/shelenderkumar">LeetCode</a>
+    </p>
+    <p class="muted small-print">© 2026 Shelender Kumar · Hand-written HTML and CSS, no tracking.</p>
+  </footer>
+
+  <script>
+    document.querySelector(".theme").addEventListener("click", () => {
+      const root = document.documentElement;
+      const dark = root.dataset.theme ? root.dataset.theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches;
+      root.dataset.theme = dark ? "light" : "dark";
+      try { localStorage.setItem("theme", root.dataset.theme); } catch (e) {}
+    });
+  </script>
+</body>
+</html>
