@@ -42,8 +42,8 @@
       <h1>Shelender Kumar</h1>
       <p class="lede">
         I build AI systems that <em>listen, speak and read</em>: voice agents you can phone,
-        assistants that cite their sources, and models for Urdu, a language with over
-        200 million speakers that AI still underserves. I care most about the part after the demo:
+        assistants that cite their sources, and models for Urdu, a widely spoken language
+        that AI still underserves. I care most about the part after the demo:
         latency, failure modes, and evaluation that holds up.
       </p>
       <div class="actions">
@@ -77,19 +77,19 @@
           <ul class="tags"><li>eBPF / XDP</li><li>nDPI</li><li>Linux networking</li><li>Python + C</li></ul>
         </div>
         <figure class="chart" aria-labelledby="ttb-caption">
-          <figcaption id="ttb-caption">Median time from ClientHello to kernel block (log scale)</figcaption>
+          <figcaption id="ttb-caption">Median time from ClientHello to kernel block (log scale, 0.1&nbsp;ms to 10&nbsp;s)</figcaption>
           <div class="bars" role="list">
-            <div class="bar" role="listitem" style="--w: 95%">
-              <span class="label">Flow export (v1)</span><span class="track"><span class="fill"></span></span><span class="val">5,806 ms</span><span class="note">0/30 first connections stopped</span>
+            <div class="bar" role="listitem" style="--w: 95.5%">
+              <span class="label">Flow export (v1)</span><span class="track"><span class="fill"></span></span><span class="val">5,940 ms</span><span class="note">0/100 first connections stopped; 7/100 never acted on</span>
             </div>
-            <div class="bar" role="listitem" style="--w: 70%">
-              <span class="label">Per-packet plugin</span><span class="track"><span class="fill"></span></span><span class="val">489 ms</span><span class="note">0/30 stopped</span>
+            <div class="bar" role="listitem" style="--w: 74.6%">
+              <span class="label">Per-packet plugin</span><span class="track"><span class="fill"></span></span><span class="val">535.7 ms</span><span class="note">0/100 stopped</span>
             </div>
-            <div class="bar accent" role="listitem" style="--w: 5%">
-              <span class="label">Fast path (v2)</span><span class="track"><span class="fill"></span></span><span class="val">0.81 ms</span><span class="note">30/30 stopped</span>
+            <div class="bar accent" role="listitem" style="--w: 12.9%">
+              <span class="label">Fast path (v2)</span><span class="track"><span class="fill"></span></span><span class="val">0.44 ms</span><span class="note">100/100 stopped</span>
             </div>
           </div>
-          <p class="source">Measured on a Linux 6.18 testbed, 30 trials per mode.</p>
+          <p class="source">Linux 6.18 testbed, 100 trials per mode. <a href="https://github.com/shelenderrkumar/Network-Monitoring-App/blob/main/bench/results/time_to_block.csv">Raw data</a>.</p>
         </figure>
       </article>
 
@@ -119,7 +119,7 @@
 
         <article class="project">
           <p class="stat"><span>Hit rate@k · MRR</span> retrieval evaluation</p>
-          <h3><a href="https://github.com/shelenderrkumar/RAG-App">Stateful RAG assistant</a></h3>
+          <h3><a href="https://github.com/shelenderrkumar/RAG-App">Stateful RAG chatbot</a></h3>
           <p>
             A conversational agent built as a LangGraph state machine with human-in-the-loop interrupts:
             it guides a user through a flow, confirms before acting, and answers questions about a PDF
@@ -130,7 +130,7 @@
 
         <article class="project">
           <p class="stat"><span>10</span> languages, with dose checks</p>
-          <h3><a href="https://github.com/shelenderrkumar/Healthcare-Translation-App-with-Gen-AI">Clinician–patient interpreter</a></h3>
+          <h3><a href="https://github.com/shelenderrkumar/Healthcare-Translation-App-with-Gen-AI">Medical interpreter</a></h3>
           <p>
             Two-way speech translation for clinics: Whisper transcription, a constrained LLM
             translation, and a deterministic check that flags any dropped or changed number or dose,
@@ -148,10 +148,10 @@
       </header>
       <div class="research">
         <div>
-          <h3 class="small">In preparation</h3>
+          <h3 class="small">Preprint</h3>
           <p class="paper">
-            <span class="paper-title">Blocking the First Connection: Where the Time Goes in DPI-Guided XDP Enforcement</span>
-            <span class="paper-meta">Shelender Kumar · workshop paper, in preparation</span>
+            <a class="paper-title" href="https://github.com/shelenderrkumar/Network-Monitoring-App/blob/main/paper/main.pdf">Blocking the First Connection: Where the Time Goes in DPI-Guided XDP Enforcement</a>
+            <span class="paper-meta">Preprint, 2026 · <a href="https://github.com/shelenderrkumar/Network-Monitoring-App/blob/main/paper/main.pdf">PDF</a> · <a href="https://github.com/shelenderrkumar/Network-Monitoring-App/tree/main/bench/results">data</a></span>
           </p>
           <p class="muted">
             Why DPI-guided blockers miss the first connection, a fast path that doesn't,
